@@ -1,0 +1,188 @@
+{
+  "name": "简历抓取工具",
+  "version": "2020.05.20",
+  "manifest_version": 2,
+  "description": "提供智联、前程简历自动下载",
+  "icons": {
+    "16": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+  "background": {
+    "scripts": [
+      "plugins/jquery/jquery.min.js",
+      "scripts/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_title": "简历抓取工具"
+  },
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "js": [
+        "plugins/moment/moment.min.js",
+        "plugins/js-xlsx/xlsx.full.min.js",
+        "plugins/jquery/jquery.min.js",
+        "plugins/clipboard/clipboard.min.js",
+        "plugins/jszip/jszip.min.js",
+        "scripts/contentscript.js",
+        "scripts/config.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://*.douban.com/*",
+        "https://*.douban.com/*"
+      ],
+      "js": [
+        "scripts/douban/douban.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://*.zhaopin.com/*",
+        "https://*.zhaopin.com/*"
+      ],
+      "js": [
+        "scripts/zhaopin/zhaopin.js",
+        "scripts/zhaopin/zhaopin_deploy.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://cvsehire.51job.com/*",
+        "https://cvsehire.51job.com/*"
+      ],
+      "js": [
+        "scripts/51job/51job_popup.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://ehire.51job.com/*",
+        "https://ehire.51job.com/*"
+      ],
+      "js": [
+        "scripts/51job/51job.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://*.58.com/*",
+        "https://*.58.com/*"
+      ],
+      "js": [
+        "scripts/58/58.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://*.ganji.com/*",
+        "https://*.ganji.com/*"
+      ],
+      "js": [
+        "scripts/ganji/ganji.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://www.wanzhoujob.com/*"
+      ],
+      "js": [
+        "scripts/wanzhoujob/wanzhoujob.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "http://*.huibo.com/*",
+        "https://*.huibo.com/*"
+      ],
+      "js": [
+        "scripts/huibo/huibo.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://*.chinahr.com/*"
+      ],
+      "js": [
+        "scripts/chinahr/chinahr.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://*.0757rc.com/*"
+      ],
+      "js": [
+        "scripts/0757rc/0757rc.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://*.cjol.com/*"
+      ],
+      "js": [
+        "scripts/cjol/cjol.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    },
+    {
+      "matches": [
+        "*://*.zhipin.com/*"
+      ],
+      "js": [
+        "plugins/select2/js/select2.min.js",
+        "scripts/boss/boss.js"
+      ],
+      "css": [
+        "plugins/select2/css/select2.min.css"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  "permissions": [
+    "downloads",
+    "tabs",
+    "storage",
+    "cookies",
+    "webRequest",
+    "*://*/*"
+  ],
+  "web_accessible_resources": [
+    "plugins/jquery/jquery.min.map",
+    "plugins/moment/moment.min.js",
+    "plugins/jszip/jszip.min.js",
+    "scripts/zhaopin/zhaopin_ajax_listener.js",
+    "scripts/zhaopin/rd5_injected_script.js",
+    "scripts/zhaopin/rd6_injected_script.js"
+  ]
+}

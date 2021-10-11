@@ -1,0 +1,213 @@
+body {
+    padding: 20px;
+}
+
+input.ng-dirty.ng-valid {
+    border: 1px solid #3c763d;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+input.ng-dirty.ng-invalid {
+    border: 1px solid #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.table > thead > tr > th {
+    text-align: center;
+    background-color: #f7f7f7;
+}
+
+body {
+    padding: 0px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+}
+
+.navbar-inverse {
+    background: rgba(0, 0, 0, .075);
+    border: none;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a {
+    color: #fff;
+}
+
+.container {
+    min-width: 1170px;
+    padding: 0;
+}
+
+.container > nav > div {
+    width: 100%;
+    padding: 0;
+    left: 0;
+    margin: 0 auto;
+    float: none;
+    min-width: 1170px;
+}
+
+.navbar-inverse .navbar-brand {
+    padding: 0;
+    line-height: 50px;
+}
+
+.navbar-brand > img {
+    display: block;
+    float: left;
+}
+
+.navbar-brand > span {
+    display: block;
+    float: left;
+}
+
+.content-wrap .panel-default {
+    border: none;
+    margin: 0;
+}
+
+.tab-content {
+    border-top: 2px solid #09c;
+    padding: 10px 15px 0 15px;
+    margin-top: 1px;
+}
+
+.nav-tabs {
+    border: none;
+    background: #fff;
+    padding: 0 15px;
+}
+
+.label-success {
+    display: none;
+}
+
+.nav-tabs > li > a {
+    border-radius: 0;
+    background: #eee;
+    border: 0;
+    color: #555;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    background: #09c;
+    border: 0;
+    color: #fff;
+}
+
+.content-wrap .btn {
+    font-size: 12px;
+    padding: 0 20px;
+    border-radius: 0;
+    height: 26px;
+    line-height: 24px;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 3px 0;
+}
+
+.table-bordered > thead > tr > th {
+    border-bottom-width: 1px;
+    line-height: 26px;
+}
+
+.table-bordered > tbody > tr > td {
+    line-height: 26px;
+}
+
+.btn-primary, .btn-primary:hover {
+    background: #00897B;
+    border-color: #00897B;
+}
+
+.content-wrap .btn-default {
+    border-right: 0;
+}
+
+.btn-group-justified {
+    border-right: 1px solid #ccc;
+}
+
+#jd_subContainer {
+    background: #0099cc !important;
+}
+
+/*登陆页样式修改*/
+.resume-tool-login {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url(../images/bg.jpg) top no-repeat;
+}
+
+.resume-tool-login .panel-default {
+    /* width: 900px; */
+    width: 360px;
+    height: 350px;
+    border-radius: 6px;
+    background: transparent;
+    margin: 0 auto;
+    float: none;
+    left: auto;
+    padding: 15px;
+    border: 0;
+}
+
+.resume-tool-login-img {
+    width: auto;
+    float: left;
+    padding: 55px 0 0 15px;
+}
+
+.resume-tool-login .panel-body {
+    background: #fff;
+    height: 320px;
+    border-radius: 6px;
+    width: 360px;
+    float: right;
+}
+
+.resume-tool-login h3 {
+    margin: 0 0 15px 0;
+    font-size: 18px;
+    text-align: center;
+    border-bottom: 1px dashed #ccc;
+    padding: 15px 0;
+}
+
+.resume-tool-login-button {
+    border-radius: 0;
+    width: 100%;
+    height: 39px;
+}
+
+.resume-tool-login .form-control {
+    border-radius: 0;
+    height: 39px;
+    border-left: 2px solid #eb6860;
+}
+
+.resume-tool-login .form-group {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-logo {
+    margin-top: 85px;
+    margin-left: 20px;
+    float: none;
+    left: auto;
+    padding: 15px;
+    border: 0;
+}
+
+.login-logo-foot {
+    background: url(../images/login_logo_foot.png) 70px 0 no-repeat;
+    height: 10px;
+}

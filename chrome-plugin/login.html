@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta http-equiv="content-style-type" content="text/css"/>
+    <meta http-equiv="content-script-type" content="text/javascript"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>简历插件</title>
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div class="container" ng-controller="loginController">
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="col-md-8 col-md-push-2">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav pull-right">
+                    <li>
+                        <a href="#"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;当前版本:{{version}}</a>
+                    </li>
+                    <li>
+                        <a href="#" ng-click="logout()"><i class="glyphicon glyphicon-off"></i>&nbsp;{{logoutButton.title}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="collapse resume-tool-login" ng-class="{'in':logoutButton.close}">
+        <div style="width: 900px;margin: auto;">
+            <div class="login-logo" style="height: 46px;"></div>
+            <!-- <div class="login-logo-foot"></div> -->
+            <div class="panel panel-default col-md-4 col-md-push-4">
+                <!-- <div class="resume-tool-login-img"><img src="images/login_img1.jpg" alt=""></div> -->
+                <div class="panel-body">
+                    <h3>简历抓取工具</h3>
+                    <form class="form-horizontal" name="loginForm" method="post" novalidate ng-submit="login()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" id="username" ng-model="user.username" placeholder="用户名" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" id="password" name="password" ng-model="user.password" placeholder="密码" required/>
+                        </div>
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                        </alert>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary resume-tool-login-button" ng-disabled="loginForm.$invalid">登录</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="plugins/angular/angular.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="plugins/moment/moment.js"></script>
+<script src="scripts/login.js"></script>
+</body>
+</html>
