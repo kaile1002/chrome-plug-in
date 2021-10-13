@@ -6,7 +6,7 @@
 //生产环境插件登录的URL
 // var loginUrl = 'http://cas.renruihr.com/login?service=https://rptask.renruihr.com/shiro-cas';
 var loginUrl = 'http://castest.renruihr.com/login?service=https://rptask.renruihr.com/shiro-cas';
-//瑞聘地址
+//old地址
 // var remoteUrl = 'https://rptask.renruihr.com';
 var remoteUrl = 'https://rptasktest.renruihr.com';
 //接收简历方法的URL

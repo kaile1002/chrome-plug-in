@@ -671,7 +671,7 @@
                         thisObj.startInterval();
                     };
                     callArgs = callArgs || [];
-                    modalWindow.append('开始同步至瑞聘系统，总共' + fileList.length + '条');
+                    modalWindow.append('开始同步至系统，总共' + fileList.length + '条');
                     $.ajax({
                         url: jdAccount.receiveFileURL,
                         data: {
@@ -691,8 +691,8 @@
                             callback.apply(thisObj, callArgs);
                         },
                         error: function () {
-                            modalWindow.append('<strong style="color:#f22c40">无法同步至瑞聘系统</strong>');
-                            modalWindow.append('<strong style="color:#f22c40">同步瑞聘失败</strong>');
+                            modalWindow.append('<strong style="color:#f22c40">无法同步至系统</strong>');
+                            modalWindow.append('<strong style="color:#f22c40">同步失败</strong>');
                             callback.apply(thisObj, callArgs);
                         }
                     })
@@ -712,7 +712,7 @@
                         thisObj.startInterval();
                     };
                     callArgs = callArgs || [];
-                    modalWindow.append('开始同步至瑞聘系统，总共' + resumes.length + '条');
+                    modalWindow.append('开始同步至系统，总共' + resumes.length + '条');
                     $.ajax({
                         url: jdAccount.receiveURL,
                         data: {
@@ -747,14 +747,14 @@
                                     thisObj.setResumes();
                                     window.sessionStorage.removeItem('jdDayExportedTemp');
                                     window.sessionStorage.removeItem('jdExportedTemp');
-                                    modalWindow.append('<strong style="color:#f22c40">同步瑞聘失败</strong>');
+                                    modalWindow.append('<strong style="color:#f22c40">同步失败</strong>');
                                     callback.apply(thisObj, callArgs);
                                 }
                                 retry--;
                             }
                         },
                         error: function () {
-                            modalWindow.append('<strong style="color:#f22c40">无法同步至瑞聘系统</strong>');
+                            modalWindow.append('<strong style="color:#f22c40">无法同步至系统</strong>');
                             if (retry > 0) {
                                 modalWindow.append('<strong style="color:#f22c40">插件会尝试重新尝试发起请求，' + retry + '次尝试后仍失败则不再尝试</strong>');
                                 setTimeout(function () {
@@ -764,7 +764,7 @@
                                 thisObj.setResumes();
                                 window.sessionStorage.removeItem('jdDayExportedTemp');
                                 window.sessionStorage.removeItem('jdExportedTemp');
-                                modalWindow.append('<strong style="color:#f22c40">同步瑞聘失败</strong>');
+                                modalWindow.append('<strong style="color:#f22c40">同步失败</strong>');
                                 callback.apply(thisObj, callArgs);
                             }
                             retry--;

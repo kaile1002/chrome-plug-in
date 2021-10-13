@@ -45,94 +45,27 @@ $.ajaxSetup({async: true});
                 return deferred.promise;
             },
 
+            //校验用户名和密码
+            checkLogin:function(user){
+                var deferred = $q.defer();
+                if(user['username']!=='vip'){
+                    deferred.resolve({'result': false});
+                    return deferred.promise;
+                }
+                if(user['password']!=='vip123'){
+                    deferred.resolve({'result': false});
+                    return deferred.promise;
+                }
+                deferred.resolve({'result': true});
+                return deferred.promise;
+            },
+
             //登录方法
             login: function (user) {
                 var deferred = $q.defer();
-                if(user['username']!=='vip'){
-                    return
-                }
-                if(user['password']!=='vip123'){
-                    return
-                }
-                window.location.href = "main.html";
-                return
-                if (loginURL.indexOf("cas.renruihr.com") >= 0) {
-                    $http.get(loginURL).success(function (data) {
-                        if ($(data).find("input[name='execution']").length === 0) {
-                            window.location.href = "main.html";
-                            deferred.resolve({'result': true});
-                            return;
-                        }
-                        $http.post(loginUrl,
-                            {
-                                username: user['username'],
-                                password: user['password'],
-                                execution: $(data).find("input[name='execution']").val(),
-                                _eventId: $(data).find("input[name='_eventId']").val()
-
-                            }, {
-                                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                                transformRequest: function (data) {
-                                    var params = '';
-                                    for (var name in data) {
-                                        if (params !== '') {
-                                            params += '&';
-                                        }
-                                        params += name;
-                                        params += '=';
-                                        params += data[name];
-                                    }
-                                    return params;
-                                }
-                            }).success(function (data) {
-                            console.log(data);
-                            //登录失败的场合、停留在登录画面
-                            if ($(data).find('#msg').text() != "") {
-                                deferred.resolve({'result': false});
-                            }
-                            //登录成功的场合、迁移到网站一览画面
-                            else {
-                                window.location.href = "main.html";
-                                deferred.resolve({'result': true});
-                            }
-                        }).error(function () {
-                            deferred.resolve();
-                        });
-                    });
-                } else {
-                    $http.post(loginUrl,
-                        {
-                            username: user['username'],
-                            password: user['password']
-                        }, {
-                            headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
-                            transformRequest: function (data) {
-                                var params = '';
-                                for (var name in data) {
-                                    if (params !== '') {
-                                        params += '&';
-                                    }
-                                    params += name;
-                                    params += '=';
-                                    params += data[name];
-                                }
-                                return params;
-                            }
-                        }).success(function (data) {
-                        console.log(data);
-                        //登录失败的场合、停留在登录画面
-                        if ($(data).find('#msg').text() != "") {
-                            deferred.resolve({'result': false});
-                        }
-                        //登录成功的场合、迁移到网站一览画面
-                        else {
-                            window.location.href = "main.html";
-                            deferred.resolve({'result': true});
-                        }
-                    }).error(function () {
-                        deferred.resolve();
-                    });
-                }
+                setTimeout(function(){
+                    deferred.resolve({'result': true});
+                },100)
                 return deferred.promise;
             }
         };
@@ -164,16 +97,23 @@ $.ajaxSetup({async: true});
 
         //插件登录方法
         $scope.login = function () {
-            loginService.login($scope.user).then(function (data) {
-                if (data) {
-                    if (data.result) {
-                    } else {
-                        $scope.alert('登录失败，账号无效、用户名或密码不正确。', 'danger');
-                    }
-                } else {
-                    $scope.alert('简历解析平台服务未开启。');
+            loginService.checkLogin($scope.user).then(function(data){
+                if(data.result){
+                    loginService.login($scope.user).then(function (data) {
+                        if (data) {
+                            if (data.result) {
+                                window.location.href = "main.html";
+                            } else {
+                                $scope.alert('请输入正确的账号或者密码！', 'danger');
+                            }
+                        } else {
+                            $scope.alert('网络异常，请联系管理员！');
+                        }
+                    });
+                }else{
+                    $scope.alert('请输入正确的账号或者密码！', 'danger');
                 }
-            });
+            })
         }
     });
     angular.bootstrap(document, ['jd_util']);
