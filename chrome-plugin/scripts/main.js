@@ -119,8 +119,6 @@ $.ajaxSetup({ async: true });
         var validateSession = function () {
           $timeout(function () {
             updateLoginStatus(true);
-            //构造简历网站列表
-            buildResumeSiteList();
           }, 500);
         };
         validateSession();
