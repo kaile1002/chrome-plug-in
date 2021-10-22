@@ -12,7 +12,7 @@
 
             this.index = 1;
             this.types = {
-                'zhaopin': '01',
+                'zhaopin': '01',//智联
                 '51job': '02',
                 '58': '03',
                 'ganji': '04',

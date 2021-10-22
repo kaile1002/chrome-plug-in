@@ -1,17 +1,14 @@
-var remoteURL = "";
 var receiveURL = "";
-var receiveFileURL = "";
+var accountList = ""; //获取账号列表接口
 var selfbuildResumeSiteList = []; //网站列表
-var selfresumeSiteAccountList = []; //网站账号
 var md5 = null;
 
 //加载config.js中的配置信息
 $.ajaxSetup({ async: false, cache: false });
 
 $.getScript("/scripts/config.js", function () {
-  remoteURL = remoteUrl;
   receiveURL = receiveUrl;
-  receiveFileURL = receiveFileUrl;
+  accountList = accountList;
 });
 
 $.getScript("/scripts/md5.js", function () {
@@ -21,9 +18,6 @@ $.getScript("/scripts/md5.js", function () {
 $.getScript("/scripts/resumeSiteList.js", function () {
   selfbuildResumeSiteList = buildResumeSiteList.filter(function (v, i) {
     return v.subName == "智联招聘";
-  });
-  selfresumeSiteAccountList = resumeSiteAccountList.filter(function (v, i) {
-    return v.siteLoginAccount == "baimx19828633119";
   });
 });
 
@@ -37,71 +31,35 @@ $.ajaxSetup({ async: true });
   app.value("loginStatus", false);
 
   app
-    .factory("resumeSiteService", function ($http, $q, $window, loginStatus) {
-      return {
-        //设置本地内存中的登录状态
-        cacheLoginStatus: function (cache) {
-          loginStatus = cache;
-        },
+    .factory(
+      "resumeSiteService",
+      function ($http, $q, $window, $timeout, loginStatus) {
+        return {
+          //设置本地内存中的登录状态
+          updateLoginStatus: function (cache) {
+            loginStatus = cache;
+          },
 
-        //取得登录状态
-        getLoginStatus: function () {
-          return loginStatus;
-        },
+          //取得登录状态
+          getLoginStatus: function () {
+            return loginStatus;
+          },
+          //获取账号列表接口
+          getAccountList: function () {
+            return accountList;
+          },
 
-        //获取登录地址
-        getRemoteURL: function () {
-          return remoteURL;
-        },
-
-        //退出方法
-        logout: function () {
-          var deferred = $q.defer();
-          $http
-            .post(remoteURL + "/logout", {})
-            .success(function (data) {
-              deferred.resolve(data);
-              window.location.href = "login.html";
-            })
-            .error(function (data) {
-              deferred.reject(data);
-            });
-          return deferred.promise;
-        },
-
-        //根据网站类型 获取招聘网站账号信息列表
-        getResumeSiteAccountList: function (siteTypeCd) {
-          var deferred = $q.defer();
-          $http
-            .get(
-              remoteURL +
-                "/rp/resumesite/getResumeSiteAccountList?siteTypeCd=" +
-                (siteTypeCd || "")
-            )
-            .success(function (data) {
-              deferred.resolve(data);
-            })
-            .error(function (data) {
-              deferred.reject(data);
-            });
-          return deferred.promise;
-        },
-
-        //获取招聘网站信息列表
-        getResumeSiteList: function () {
-          var deferred = $q.defer();
-          $http
-            .get(remoteURL + "/rp/resumesite/getResumeSiteList")
-            .success(function (data) {
-              deferred.resolve(data);
-            })
-            .error(function (data) {
-              deferred.reject(data);
-            });
-          return deferred.promise;
-        },
-      };
-    })
+          //退出方法
+          logout: function () {
+            var deferred = $q.defer();
+            $timeout(function () {
+              deferred.resolve(true);
+            }, 500);
+            return deferred.promise;
+          },
+        };
+      }
+    )
     .controller(
       "resumeSiteController",
       function (
@@ -112,8 +70,10 @@ $.ajaxSetup({ async: true });
         $window,
         resumeSiteService
       ) {
-        $scope.remoteURL = resumeSiteService.getRemoteURL();
+        $scope.accountList = resumeSiteService.getAccountList();
         $scope.version = chrome.app.getDetails().version;
+        $scope.resumeSiteList = []; //网站列表
+        $scope.resumeSiteAccountList = {}; //账号列表
 
         //更改登录状态，请求网站列表
         var validateSession = function () {
@@ -123,9 +83,22 @@ $.ajaxSetup({ async: true });
         };
         validateSession();
 
+        //更新插件的登录状态
+        var updateLoginStatus = function (login) {
+          resumeSiteService.updateLoginStatus(login);
+          if (login) {
+            buildResumeSiteList();
+          } else {
+            $scope.resumeSiteAccountList = {};
+            window.location.href = "login.html";
+          }
+          $scope.logoutButton.title = login ? "注销" : "关闭";
+          $scope.logoutButton.close = !login;
+          $scope.alerts = [];
+        };
+
         //构建网站列表信息
         var buildResumeSiteList = function () {
-          $scope.resumeSiteList = [];
           if (selfbuildResumeSiteList.length) {
             angular.forEach(selfbuildResumeSiteList, function (item) {
               var resumeSite = {
@@ -143,33 +116,36 @@ $.ajaxSetup({ async: true });
 
         //构建网站账号列表信息
         var buildResumeSiteAccountList = function (siteTypeCd) {
-          if (selfresumeSiteAccountList.length) {
-            //按各个第三方网站的编号存放各自网站的登录账号
-            $scope.resumeSiteAccountList = [];
-
-            angular.forEach(selfresumeSiteAccountList, function (obj) {
-              if ($scope.resumeSiteAccountList[obj.siteTypeCd]) {
-                $scope.resumeSiteAccountList[obj.siteTypeCd].push(obj);
-              } else {
-                $scope.resumeSiteAccountList[obj.siteTypeCd] = [obj];
+          let data = {
+            time: Date.parse(new Date()),
+            sign: md5(
+              Date.parse(new Date()) +
+                md5("api-headhunter-opt-key").toUpperCase()
+            ).toUpperCase(),
+            channel_type: "01",
+          };
+          $.ajax({
+            url: $scope.accountList,
+            data: data,
+            cache: false,
+            type: "POST",
+            success: function (res) {
+              if (res.code == 200 && res.data && res.data.length) {
+                const resumeSiteAccountList = res.data;
+                angular.forEach(resumeSiteAccountList, function (obj) {
+                  if ($scope.resumeSiteAccountList[obj.siteTypeCd]) {
+                    $scope.resumeSiteAccountList[obj.siteTypeCd].push(obj);
+                  } else {
+                    $scope.resumeSiteAccountList[obj.siteTypeCd] = [obj];
+                  }
+                });
               }
-            });
-          } else {
-            $scope.resumeSiteAccountList = [];
-          }
-        };
-
-        //更新插件的登录状态
-        var updateLoginStatus = function (login) {
-          resumeSiteService.cacheLoginStatus(login);
-          if (login) {
-            buildResumeSiteList();
-          } else {
-            $scope.resumeSiteAccountList = [];
-          }
-          $scope.logoutButton.title = login ? "注销" : "关闭";
-          $scope.logoutButton.close = !login;
-          $scope.alerts = [];
+              $scope.$apply();
+            },
+            error: function () {
+              sendResponse({ code: -1, msg: "获取账号信息失败" });
+            },
+          });
         };
 
         //登录第三方招聘网站前的校验处理
@@ -222,25 +198,22 @@ $.ajaxSetup({ async: true });
               jd: "openURL",
               url: resumeSite.url,
               siteTypeCd: resumeSite.siteTypeCd,
-              remoteURL: $scope.remoteURL,
               siteAccountInfo: {
-                version: $scope.version,
-                resumeSiteUid: resumeSiteAccount.uid,
-                siteLoginAccount: resumeSiteAccount.siteLoginAccount,
-                siteLoginPassword: resumeSiteAccount.siteLoginPassword,
-                siteVipName: resumeSiteAccount.siteVipName,
-                receiveURL: receiveURL,
-                receiveFileURL: receiveFileURL,
-                operationLogURL: operationLogURL,
-                saveToDb: resumeSiteAccount.saveToDb,
-                siteSecurityPolicy: resumeSiteAccount.securityPolicy,
+                version: $scope.version, //版本
+                resumeSiteUid: resumeSiteAccount.doumi_user_id, //账号的uid
+                siteLoginAccount: resumeSiteAccount.account, //账号
+                siteLoginPassword: "", //密码
+                siteVipName: resumeSiteAccount.account_name, //网站vip名称
+                receiveURL: receiveURL, //接受简历的url
+                saveToDb: resumeSiteAccount.saveToDb || 1,
+                siteTypeCd: resumeSite.siteTypeCd, //账号类型 01：智联
+                siteSecurityPolicy: resumeSiteAccount.securityPolicy || "",
               },
             },
             function (response) {
               if (response.msg) {
                 $scope.alerts[0] = { msg: response.msg, type: "danger" };
               } else {
-                
               }
               $scope.$apply();
             }
@@ -267,7 +240,9 @@ $.ajaxSetup({ async: true });
         //退出登录方法
         $scope.logout = function () {
           resumeSiteService.logout().then(function (res) {
-            updateLoginStatus(false);
+            if (res) {
+              updateLoginStatus(false);
+            }
           });
         };
 
@@ -277,6 +252,7 @@ $.ajaxSetup({ async: true });
         });
 
         //插件 选项设置的内容
+        //作用：存储插件时间的设置
         $scope.setOption = function (resumeSite, value) {
           var siteTypeCd = resumeSite.siteTypeCd;
           if ($scope.options == null || $scope.options == "undefined") {

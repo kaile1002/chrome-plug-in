@@ -53,19 +53,27 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th>帐号</th>
+                                <th>员工编号</th>
+                                <th>渠道</th>
+                                <th>账号</th>
                                 <th>会员名</th>
-                                <th>简历归属人</th>
-                                <th>创建日期</th>
+                                <th>部门</th>
+                                <th>主管</th>
+                                <th>姓名(简历归属人)</th>
+                                <th>顾问邮箱(入库邮箱)</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr class="text-center" ng-repeat="resumeSiteAccount in resumeSiteAccountList[resumeSite.siteTypeCd]">
-                                <td>{{resumeSiteAccount.siteLoginAccount}}</td>
-                                <td>{{resumeSiteAccount.siteVipName}}</td>
-                                <td>{{resumeSiteAccount.responsibleUserName}}</td>
-                                <td>{{resumeSiteAccount.insertDate}}</td>
+                                <td>{{resumeSiteAccount.doumi_user_id}}</td>
+                                <td>{{resumeSiteAccount.channel_type}}</td>
+                                <td>{{resumeSiteAccount.account}}</td>
+                                <td>{{resumeSiteAccount.account_name}}</td>
+                                <td>{{resumeSiteAccount.group_name}}</td>
+                                <td>{{resumeSiteAccount.boss_name}}</td>
+                                <td>{{resumeSiteAccount.fullname}}</td>
+                                <td>{{resumeSiteAccount.email}}</td>
                                 <td>
                                     <button class="btn btn-default btn-success" ng-click="validateResumeSiteLogin(resumeSite, resumeSiteAccount,0)">登录</button>
                                     <!-- <button class="btn btn-default btn-warning" ng-click="validateResumeSiteLogin(resumeSite, resumeSiteAccount,1)">->待沟通</button>

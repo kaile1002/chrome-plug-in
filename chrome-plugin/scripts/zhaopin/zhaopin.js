@@ -38,6 +38,7 @@
 
     var settingDate;
     chrome.storage.sync.get(null, function (item) {
+        console.log('获取页面url',location.href);
         if (location.href.indexOf("rd.zhaopin.com/resumepreview/resume/validateuser") > -1) {
             return;
         } else if (location.href.toLowerCase().indexOf("passport.zhaopin.com/org/verifymobile") > -1) {
@@ -1411,7 +1412,8 @@
                     resumeSiteUid: jdAccount.resumeSiteUid,
                     siteOrganizationName: siteLoginCompanyName,
                     resumes: syncResumes
-                })
+                }),
+                'channel_type':jdAccount.siteTypeCd
             }
         }, function (res) {
             console.log('上传成功之后》》》',res);
