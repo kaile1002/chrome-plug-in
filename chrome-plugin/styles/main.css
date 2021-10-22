@@ -92,7 +92,7 @@ body {
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-    background: #09c;
+    background: #5cb85c;
     border: 0;
     color: #fff;
 }
@@ -210,4 +210,8 @@ body {
 .login-logo-foot {
     background: url(../images/login_logo_foot.png) 70px 0 no-repeat;
     height: 10px;
+}
+
+.main-bg{
+    background: url(../images/bg.jpg) top no-repeat;
 }
