@@ -26,7 +26,7 @@ body {
 }
 
 .navbar-inverse {
-    background: rgba(0, 0, 0, .075);
+    background: #0099cc;
     border: none;
 }
 
@@ -92,7 +92,7 @@ body {
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-    background: #5cb85c;
+    background: #09c;
     border: 0;
     color: #fff;
 }
@@ -119,8 +119,8 @@ body {
 }
 
 .btn-primary, .btn-primary:hover {
-    background: #00897B;
-    border-color: #00897B;
+    background: #0099cc;
+    border-color: #09c;
 }
 
 .content-wrap .btn-default {
@@ -138,19 +138,17 @@ body {
 /*登陆页样式修改*/
 .resume-tool-login {
     position: absolute;
-    top: 0px;
+    top: 50px;
     left: 0;
     right: 0;
-    bottom: 0;
-    background: url(../images/bg.jpg) top no-repeat;
+    background: url(../images/login_bg.jpg) top no-repeat;
 }
 
 .resume-tool-login .panel-default {
-    /* width: 900px; */
-    width: 360px;
+    width: 900px;
     height: 350px;
     border-radius: 6px;
-    background: transparent;
+    background: #0099cc;
     margin: 0 auto;
     float: none;
     left: auto;
@@ -210,8 +208,4 @@ body {
 .login-logo-foot {
     background: url(../images/login_logo_foot.png) 70px 0 no-repeat;
     height: 10px;
-}
-
-.main-bg{
-    background: url(../images/bg.jpg) top no-repeat;
 }

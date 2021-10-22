@@ -73,7 +73,6 @@
         }
 
         this.syncGetResumeListCallBack = function (resumeDataJson, resolve) {
-            console.log('resumeDataJsonresumeDataJson',resumeDataJson);
             var finishLength = 0;
             var resumeList = [];
             for (let i = 0, len = resumeDataJson.data.total; i < len; i++) {
@@ -118,7 +117,6 @@
                 url: "//rd6.zhaopin.com/resume/detail?jobNumber=" + resume.jobNumber + "&resumeNumber=" + resume.resumeNumber + "&resumeLanguage=" + resume.resumeLanguage,
             }).done(function (response) {
                 var initialState = _this.getPageInitialStateJson(response);
-                console.log('getPageInitialStateJson',initialState);
                 if (initialState) {
                     var key = Object.keys(initialState.store.resumeDetail.resumes)[0];
                     resolve(initialState.store.resumeDetail.resumes[key]);
@@ -183,7 +181,6 @@
                 url: "//rd6.zhaopin.com/job/detail?jobNumber=" + jobNumber,
             }).done(function (response) {
                 var initialState = _this.getPageInitialStateJson(response);
-                console.log('getPageInitialStateJson',initialState);
                 if (initialState) {
                     var jobInfos = JSON.parse(window.localStorage.getItem("zhaopin_job_detail_json") || "{}") || {};
                     jobInfos[jobNumber] = initialState.jobDetail;

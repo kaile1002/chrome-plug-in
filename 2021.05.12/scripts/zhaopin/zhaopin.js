@@ -38,7 +38,7 @@
 
     var settingDate;
     chrome.storage.sync.get(null, function (item) {
-        console.log('获取页面url',location.href);
+        console.log('7777');
         if (location.href.indexOf("rd.zhaopin.com/resumepreview/resume/validateuser") > -1) {
             return;
         } else if (location.href.toLowerCase().indexOf("passport.zhaopin.com/org/verifymobile") > -1) {
@@ -70,6 +70,7 @@
 
         //登录成功的场合
         if (JD.jdAccount.isLogin()) {
+            console.log('dddddddddddddddddddddddddddddddd');
             if (JD.jdAccount === undefined) {
                 console.log("未使用插件账号登陆，或已经超时");
                 return;
@@ -1412,8 +1413,7 @@
                     resumeSiteUid: jdAccount.resumeSiteUid,
                     siteOrganizationName: siteLoginCompanyName,
                     resumes: syncResumes
-                }),
-                'channel_type':jdAccount.siteTypeCd
+                })
             }
         }, function (res) {
             console.log('上传成功之后》》》',res);

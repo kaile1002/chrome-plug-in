@@ -1,8 +1,8 @@
 {
-  "name": "简历抓取工具",
-  "version": "1.0.0",
+  "name": "简历插件2",
+  "version": "2021.05.12",
   "manifest_version": 2,
-  "description": "智联简历自动抓取",
+  "description": "提供智联、前程简历自动下载",
   "icons": {
     "16": "images/icon.png",
     "48": "images/icon.png",
@@ -16,7 +16,7 @@
   },
   "browser_action": {
     "default_icon": "images/icon.png",
-    "default_title": "简历抓取工具"
+    "default_title": "人瑞简历插件"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "content_scripts": [
