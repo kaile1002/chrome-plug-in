@@ -43,7 +43,7 @@
                     "sourceTypes": ["APPLY", "INTERNAL_RECOMMEND"],
                     "states": ["INTERESTED", "APPOINTABLE", "APPOINTED", "INAPPROPRIATE"],
                     "pageNo": pageNumber,
-                    "pageSize": 10
+                    "pageSize": 100
                 }),
                 headers: {'Content-Type': 'application/json;charset=UTF-8'}
             }).done(function (json) {

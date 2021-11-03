@@ -156,6 +156,11 @@ $.ajaxSetup({ async: true });
           resumeSiteAccount,
           fedBackType
         ) {
+          console.log('asssssssssss',resumeSiteAccount);
+          if(!resumeSiteAccount.doumi_user_id){
+            $scope.alert("该账号未关联归属人");
+            return;
+          }
           if (resumeSite.siteTypeCd != "01" && fedBackType > 0) {
             $scope.alert("只有智联招聘支持反馈。");
             return;
