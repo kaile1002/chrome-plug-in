@@ -1410,6 +1410,7 @@
             data: {
                 'data_str': JSON.stringify({
                     resumeSiteUid: jdAccount.resumeSiteUid,
+                    account:jdAccount.siteLoginAccount,
                     siteOrganizationName: siteLoginCompanyName,
                     resumes: syncResumes
                 }),
