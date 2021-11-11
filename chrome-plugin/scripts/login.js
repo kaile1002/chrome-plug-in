@@ -1,10 +1,12 @@
 var loginURL = "";
+var env = "rpo-test";
 
 $.ajaxSetup({ async: false, cache: false });
 
 //加载config.js中的配置信息
 $.getScript("/scripts/config.js", function () {
   loginURL = loginUrl;
+  env = enums[env];
 });
 
 $.ajaxSetup({ async: true });
@@ -37,7 +39,7 @@ $.ajaxSetup({ async: true });
             return deferred.promise;
           }
           deferred.resolve({ result: true });
-          return deferred.promise; 
+          return deferred.promise;
         },
 
         //登录方法
@@ -54,6 +56,7 @@ $.ajaxSetup({ async: true });
       "loginController",
       function ($scope, $http, $timeout, $interval, $window, loginService) {
         $scope.version = chrome.app.getDetails().version;
+        $scope.env = env;
         $scope.user = {
           username: "",
           password: "",

@@ -1,5 +1,5 @@
 //0：测试环境 1：sim环境 2：正式环境
-var env = 2;
+var env = 1;
 var enums = {
   0: "rpo-test",
   1: "rpo-sim",

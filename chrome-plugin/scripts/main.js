@@ -2,6 +2,7 @@ var receiveURL = "";
 var accountList = ""; //获取账号列表接口
 var selfbuildResumeSiteList = []; //网站列表
 var md5 = null;
+var env = "rpo-test";
 
 //加载config.js中的配置信息
 $.ajaxSetup({ async: false, cache: false });
@@ -9,6 +10,7 @@ $.ajaxSetup({ async: false, cache: false });
 $.getScript("/scripts/config.js", function () {
   receiveURL = receiveUrl;
   accountList = accountList;
+  env = enums[env];
 });
 
 $.getScript("/scripts/md5.js", function () {
@@ -74,6 +76,7 @@ $.ajaxSetup({ async: true });
         $scope.version = chrome.app.getDetails().version;
         $scope.resumeSiteList = []; //网站列表
         $scope.resumeSiteAccountList = {}; //账号列表
+        $scope.env = env;
 
         //更改登录状态，请求网站列表
         var validateSession = function () {
@@ -156,8 +159,8 @@ $.ajaxSetup({ async: true });
           resumeSiteAccount,
           fedBackType
         ) {
-          console.log('asssssssssss',resumeSiteAccount);
-          if(!resumeSiteAccount.doumi_user_id){
+          console.log("asssssssssss", resumeSiteAccount);
+          if (!resumeSiteAccount.doumi_user_id) {
             $scope.alert("该账号未关联归属人");
             return;
           }
