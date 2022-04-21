@@ -1,9 +1,14 @@
 //0：测试环境 1：sim环境 2：正式环境
-var env = 1;
+var env = 2;
 var enums = {
   0: "rpo-test",
   1: "rpo-sim",
   2: "rpo",
+};
+var curEnums = {
+  0: "test",
+  1: "sim",
+  2: "online",
 };
 var host = `https://${enums[env]}.doumi.com`;
 var loginUrl = "";

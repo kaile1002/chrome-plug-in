@@ -10,7 +10,7 @@ $.ajaxSetup({ async: false, cache: false });
 $.getScript("/scripts/config.js", function () {
   receiveURL = receiveUrl;
   accountList = accountList;
-  env = enums[env];
+  env = curEnums[env];
 });
 
 $.getScript("/scripts/md5.js", function () {
@@ -274,10 +274,14 @@ $.ajaxSetup({ async: true });
             $scope.options[siteTypeCd] = {};
           }
 
+          
+
           $scope.options[siteTypeCd]["dateScopeTime"] = moment()
             .subtract(value - 1, "days")
             .format("YYYY/MM/DD");
           $scope.options[siteTypeCd]["dateScope"] = value;
+
+          console.log($scope.options);
 
           chrome.storage.sync.set($scope.options);
           $scope.alerts[0] = {

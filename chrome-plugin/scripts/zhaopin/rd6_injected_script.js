@@ -37,11 +37,12 @@
                 async: false, //设为false就是同步请求
                 url: "https://rd6.zhaopin.com/api/candidate/list?_=" + (new Date().getTime()),
                 data: JSON.stringify({
-                    "startInclude": _this.fromDateTimestamp,
-                    "endExclude": _this.toDateTimestamp,
+                    // "startInclude": _this.fromDateTimestamp,
+                    // "endExclude": _this.toDateTimestamp,
                     "orderType": "MODIFIED_TIME",
-                    "sourceTypes": ["APPLY", "INTERNAL_RECOMMEND"],
-                    "states": ["INTERESTED", "APPOINTABLE", "APPOINTED", "INAPPROPRIATE"],
+                    // "sourceTypes": ["APPLY", "INTERNAL_RECOMMEND"],
+                    // "states": ["INTERESTED", "APPOINTABLE", "APPOINTED", "INAPPROPRIATE"],//PENDING "INTERESTED", "APPOINTABLE" APPOINTED INAPPROPRIATE
+                    "states": ["INTERESTED", "APPOINTABLE"],//PENDING "INTERESTED", "APPOINTABLE" APPOINTED INAPPROPRIATE
                     "pageNo": pageNumber,
                     "pageSize": 100
                 }),

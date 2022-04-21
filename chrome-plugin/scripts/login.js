@@ -6,7 +6,7 @@ $.ajaxSetup({ async: false, cache: false });
 //加载config.js中的配置信息
 $.getScript("/scripts/config.js", function () {
   loginURL = loginUrl;
-  env = enums[env];
+  env = curEnums[env];
 });
 
 $.ajaxSetup({ async: true });
